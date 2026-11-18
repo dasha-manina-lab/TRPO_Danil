@@ -15,10 +15,19 @@ int main(int argc, char *argv[]) {
     long long left = 0, right = 0;
     std::istringstream leftInput(argv[1]);
     std::istringstream rightInput(argv[2]);
-    leftInput >> left;
-    rightInput >> right;
+    leftInput >> std::noskipws >> left;
+    rightInput >> std::noskipws >> right;
 
-    if (leftInput.fail() || rightInput.fail() || left < 1 || right < 1 || left > INT_MAX || right > INT_MAX) {
+    if (leftInput.fail() || !leftInput.eof()) {
+        std::cerr << "Ошибка: параметр A (нижняя граница) должен быть десятичным целым числом.\n";
+        return 2;
+    }
+    if (rightInput.fail() || !rightInput.eof()) {
+        std::cerr << "Ошибка: параметр B (верхняя граница) должен быть десятичным целым числом.\n";
+        return 2;
+    }
+
+    if (left < 1 || right < 1 || left > INT_MAX || right > INT_MAX) {
         std::cerr << "Ошибка: нужно ввести два натуральных числа." << std::endl;
         return 1;
     }
