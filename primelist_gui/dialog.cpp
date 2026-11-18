@@ -4,7 +4,6 @@
 #include <QMessageBox>
 #include <QString>
 
-#include <algorithm>
 #include <climits>
 
 #include "primelist.h"
@@ -69,9 +68,10 @@ void Dialog::calculate()
         return;
     }
 
-    // Границы могут быть введены в любом порядке
-    if (a > b) {
-        std::swap(a, b);
+    if (b <= a) {
+        QMessageBox::critical(this, tr("Ошибка"),
+                              tr("Верхняя граница B должна быть больше нижней границы A."));
+        return;
     }
 
     ui->listWidget->clear();
