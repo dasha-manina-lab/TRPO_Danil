@@ -1,8 +1,6 @@
-#include <algorithm>
 #include <climits>
 #include <iostream>
 #include <sstream>
-#include <vector>
 
 #include "primelist.h"
 
@@ -19,24 +17,30 @@ int main(int argc, char *argv[]) {
     rightInput >> std::noskipws >> right;
 
     if (leftInput.fail() || !leftInput.eof()) {
-        std::cerr << "Ошибка: параметр A (нижняя граница) должен быть десятичным целым числом.\n";
+        std::cerr << "Ошибка: параметр A (нижняя граница) должен быть десятичным целым числом, представимым в long long.\n";
         return 2;
     }
     if (rightInput.fail() || !rightInput.eof()) {
-        std::cerr << "Ошибка: параметр B (верхняя граница) должен быть десятичным целым числом.\n";
+        std::cerr << "Ошибка: параметр B (верхняя граница) должен быть десятичным целым числом, представимым в long long.\n";
         return 2;
     }
 
-    if (left < 1 || right < 1 || left > INT_MAX || right > INT_MAX) {
-        std::cerr << "Ошибка: нужно ввести два натуральных числа." << std::endl;
-        return 1;
+    if (left < 1 || left > INT_MAX) {
+        std::cerr << "Ошибка: параметр A (нижняя граница) должен быть натуральным числом от 1 до "
+                  << INT_MAX << ".\n";
+        return 3;
     }
-    if (left > right) {
-        std::swap(left, right);
+    if (right < 1 || right > INT_MAX) {
+        std::cerr << "Ошибка: параметр B (верхняя граница) должен быть натуральным числом от 1 до "
+                  << INT_MAX << ".\n";
+        return 3;
+    }
+    if (right <= left) {
+        std::cerr << "Ошибка: верхняя граница B должна быть больше нижней границы A.\n";
+        return 3;
     }
 
-    std::vector<int> primes = primelist(static_cast<int>(left), static_cast<int>(right));
-    for (int n : primes) {
+    for (int n : primelist(static_cast<int>(left), static_cast<int>(right))) {
         std::cout << n << '\n';
     }
     return 0;
