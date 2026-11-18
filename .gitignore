@@ -1,0 +1,16 @@
+.qtcreator/
+*.pro.user*
+build*/
+[Dd]ebug/
+[Rr]elease/
+Makefile*
+.qmake.stash
+.qmake.cache
+*.o
+*.obj
+*.exe
+*.dll
+*.lib
+*.a
+*.pdb
+/.qtc_clangd/
